@@ -7,6 +7,6 @@ pub struct ThreadScheduler {
 
 impl Scheduler for ThreadScheduler {
     fn add_task(&mut self, task: Box<dyn Task>) {
-
+        self.task_basket.add_task_sync(task);
     }
 }
