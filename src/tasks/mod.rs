@@ -1,4 +1,5 @@
 use crate::errors::ErrorBundle;
+mod task_basket;
 
 pub enum TaskState {
     Ready,
@@ -12,5 +13,7 @@ pub trait Task {
 }
 
 pub trait TaskBasket {
-    fn add_task_sync(&mut self) -> Result<(), ErrorBundle>;
+    fn add_task_sync(&mut self, task: Box<dyn Task>) -> Result<(), ErrorBundle>;
 }
+
+pub use task_basket::HeapTaskBasket;
