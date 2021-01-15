@@ -1,14 +1,15 @@
-use std::collections::BinaryHeap;
-use std::collections::LinkedList;
+use std::collections::{BinaryHeap, HashMap};
 use crate::tasks::{TaskBasket, Task};
 use crate::errors::ErrorBundle;
 
 pub struct HeapTaskBasket {
+    storage: BinaryHeap<Box<dyn Task>>
 }
 
 impl HeapTaskBasket {
     pub fn new() -> Self {
         Self {
+            storage: BinaryHeap::new()
         }
     }
 }
