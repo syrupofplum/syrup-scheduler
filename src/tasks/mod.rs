@@ -85,6 +85,7 @@ impl Ord for Box<dyn Task> {
 
 pub trait TaskBasket {
     fn add_task_sync(&mut self, task: Box<dyn Task>) -> Result<(), ErrorBundle>;
+    fn remove_task_sync(&mut self) -> Result<Box<dyn Task>, ErrorBundle>;
 }
 
 pub use task_basket::HeapTaskBasket;
