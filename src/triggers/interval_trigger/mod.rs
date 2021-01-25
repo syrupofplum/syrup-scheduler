@@ -1,3 +1,5 @@
+use std::thread;
+
 use crate::triggers::{TriggerRepeatType, TriggerRepeatInfo, TriggerRange, TriggerRunningInfo, Trigger};
 use crate::errors::ErrorBundle;
 
@@ -53,6 +55,9 @@ impl Trigger for IntervalTrigger {
     }
 
     fn shoot(&mut self) -> Result<(), ErrorBundle> {
+        thread::spawn(|| {
+            
+        });
         Result::Ok(())
     }
 }

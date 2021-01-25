@@ -1,6 +1,6 @@
 use crate::schedulers::Scheduler;
 use crate::triggers::{Trigger, IntervalTrigger};
-use crate::tasks::{Task, TaskBasket, HeapTaskBasket};
+use crate::tasks::{Task, TaskBasket, HeapTaskBasket, TaskPointer};
 
 pub struct ThreadScheduler {
     task_basket: Box<dyn TaskBasket>,
@@ -17,8 +17,8 @@ impl ThreadScheduler {
 }
 
 impl Scheduler for ThreadScheduler {
-    fn add_task(&mut self, task: Box<dyn Task>) {
-        self.task_basket.add_task_sync(task);
+    fn add_task(&mut self, task: TaskPointer) {
+        self.task_basket.add_task(task);
         self.trigger.refresh();
     }
 }
