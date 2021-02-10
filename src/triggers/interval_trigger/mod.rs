@@ -50,10 +50,6 @@ impl IntervalTrigger {
 }
 
 impl Trigger for IntervalTrigger {
-    fn refresh(&mut self) -> Result<(), ErrorBundle> {
-        Result::Ok(())
-    }
-
     fn shoot(&mut self) -> Result<(), ErrorBundle> {
         thread::spawn(|| {
             

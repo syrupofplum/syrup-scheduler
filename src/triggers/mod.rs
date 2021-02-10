@@ -25,8 +25,22 @@ pub struct TriggerRunningInfo {
 }
 
 pub trait Trigger {
-    fn refresh(&mut self) -> Result<(), ErrorBundle>;
     fn shoot(&mut self) -> Result<(), ErrorBundle>;
 }
 
 pub use interval_trigger::IntervalTrigger;
+
+pub struct TriggerManager {
+
+}
+
+impl TriggerManager {
+    pub fn new() -> Self {
+        Self {
+        }
+    }
+
+    pub fn refresh(&mut self) -> Result<(), ErrorBundle> {
+        Ok(())
+    }
+}
