@@ -52,7 +52,6 @@ impl IntervalTrigger {
 impl Trigger for IntervalTrigger {
     fn shoot(&mut self) -> Result<(), ErrorBundle> {
         thread::spawn(|| {
-            
         });
         Result::Ok(())
     }
