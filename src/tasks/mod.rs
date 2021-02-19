@@ -13,9 +13,9 @@ pub trait TaskBaseInfo {
 }
 
 pub trait TaskTriggerInfo {
-type FuncType;
+type SchedulerFunc;
     fn get_state(&self) -> Result<TaskState, ErrorBundle>;
-    fn get_func(&self) -> Result<Self::FuncType, ErrorBundle>;
+    fn get_func(&self) -> Result<Self::SchedulerFunc, ErrorBundle>;
     fn get_next_exec_time(&self) -> Result<chrono::Duration, ErrorBundle>;
 }
 
@@ -26,7 +26,7 @@ pub trait Task : TaskBaseInfo + TaskTriggerInfo + TaskRunStatInfo {
 }
 
 pub struct TaskPointer {
-    pointer: Box<dyn Task<FuncType=dyn Fn()>>
+    pointer: Box<dyn Task<SchedulerFunc=Box<dyn Fn()>>>
 }
 
 impl TaskBaseInfo for TaskPointer {
@@ -36,13 +36,13 @@ impl TaskBaseInfo for TaskPointer {
 }
 
 impl TaskTriggerInfo for TaskPointer {
-    type FuncType = Box<dyn Fn()>;
+    type SchedulerFunc = Box<dyn Fn()>;
 
     fn get_state(&self) -> Result<TaskState, ErrorBundle> {
         self.pointer.get_state()
     }
 
-    fn get_func(&self) -> Result<Self::FuncType, ErrorBundle> {
+    fn get_func(&self) -> Result<Self::SchedulerFunc, ErrorBundle> {
         Ok(Box::new(|| {}))
     }
 
@@ -82,11 +82,11 @@ impl Ord for TaskPointer {
 }
 
 pub struct TaskWeakPointer {
-    pointer: std::rc::Weak<dyn Task<FuncType=dyn Fn()>>
+    pointer: std::rc::Weak<dyn Task<SchedulerFunc=Box<dyn Fn()>>>
 }
 
 impl TaskWeakPointer {
-    pub fn upgrade(&self) -> Option<std::rc::Rc<dyn Task<FuncType=dyn Fn()>>> {
+    pub fn upgrade(&self) -> Option<std::rc::Rc<dyn Task<SchedulerFunc=Box<dyn Fn()>>>> {
         self.upgrade()
     }
 }
